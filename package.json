@@ -1,0 +1,31 @@
+{
+  "name": "cross-ailumette",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "npx nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/timberzzman/cross-ailumette.git"
+  },
+  "author": "Elouan MAILLY",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/timberzzman/cross-ailumette/issues"
+  },
+  "homepage": "https://github.com/timberzzman/cross-ailumette#readme",
+  "devDependencies": {
+    "electron": "^11.2.3",
+    "eslint": "^7.20.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "nodemon": "^2.0.7"
+  },
+  "dependencies": {
+    "yargs": "^16.2.0"
+  }
+}
