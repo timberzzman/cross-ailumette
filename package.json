@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "npx electron .",
     "dev": "npx nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -19,13 +19,13 @@
   },
   "homepage": "https://github.com/timberzzman/cross-ailumette#readme",
   "devDependencies": {
-    "electron": "^11.2.3",
     "eslint": "^7.20.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.22.1",
     "nodemon": "^2.0.7"
   },
   "dependencies": {
-    "yargs": "^16.2.0"
+    "electron": "^11.2.3",
+    "minimist": "^1.2.5"
   }
 }
