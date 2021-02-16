@@ -3,12 +3,12 @@ const board = require('./board');
 const display = require('./display');
 
 async function gameTurn(gameInfo, settings) {
-    let input = {};
+    let input = { line: 1, number: 2 };
     if (gameInfo.players[gameInfo.currentPlayer].type === 'human') {
         input = await display.displayInput(settings,
             gameInfo.players[gameInfo.currentPlayer]);
     } else {
-        input = { line: '1', number: '2' };
+        input = { line: 1, number: 2 };
     }
     const error = board.checkInput(input, gameInfo.lines);
     if (error !== '') {
@@ -17,11 +17,11 @@ async function gameTurn(gameInfo, settings) {
         gameInfo.lines = board.deleteMatches(input.line, input.matches, gameInfo.lines);
         display.displayBoard(gameInfo.lines, settings);
         gameInfo.matches -= input.matches;
+        if (gameInfo.matches === 0) {
+            gameInfo.state = 'finished';
+        }
+        gameInfo.currentPlayer = gameInfo.currentPlayer === 0 ? 1 : 0;
     }
-    if (gameInfo.matches === 0) {
-        gameInfo.state = 'finished';
-    }
-    gameInfo.currentPlayer = gameInfo.currentPlayer === 0 ? 1 : 0;
 
     return gameInfo;
 }
@@ -52,9 +52,9 @@ async function launchGame(settings, gameInfo) {
 }
 
 async function game(settings) {
-    const lines = board.initiateBoard(settings.lines, settings.width);
+    const lines = board.initiateBoard(settings.height, settings.width);
     let matches = 0;
-    for (let i = 1; i <= settings.lines; i += 1) {
+    for (let i = 1; i <= settings.height; i += 1) {
         matches += (i * 2) - 1;
     }
     const gameInfo = {

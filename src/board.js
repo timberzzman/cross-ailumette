@@ -15,11 +15,11 @@ function checkMatches(input, matches) {
     return true;
 }
 
-board.initiateBoard = (lines, width) => {
+board.initiateBoard = (height, width) => {
     const matches = [];
 
     matches.push({ number: 1, start: (width - 1) / 2 });
-    for (let i = 2; i <= lines; i += 1) {
+    for (let i = 2; i <= height; i += 1) {
         const number = (i * 2) - 1;
         matches.push({ number, start: (width - number) / 2 });
     }

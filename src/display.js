@@ -24,7 +24,7 @@ function displayBoardOnConsole(width, height, matches) {
         line = '';
     }
     console.log('*'.repeat(width + 2));
-};
+}
 
 function displayBoardOnGUI(_width, _height, _matches) {
     console.log('I am on GUI');
