@@ -1,32 +1,34 @@
-// const yargs = require('yargs');
-// const { hideBin } = require('yargs/helpers');
+const minimist = require('minimist');
+const { openApp } = require('./src/electron.js');
 const game = require('./src/game.js');
 
+const args = minimist(process.argv.slice(2),
+    {
+        boolean: ['gui'],
+        string: ['ia', 'lines'],
+        alias: {
+            i: 'ia',
+            l: 'lines',
+        },
+        default: {
+            l: 4,
+            i: 'easy',
+        },
+    });
+
 const settings = {
-    mode: 'cli', // ou 'GUI'
-    lines: 4,
+    mode: args.gui ? 'gui' : 'cli',
+    lines: args.lines,
     ia: 'manual', // ou 'easy' ou 'intermediate' ou 'difficult' ou 'auto'
-    width: 7,
-    height: 4,
+    height: args.l,
+    width: (2 * args.l) - 1,
 };
 
-/* const { argv } = yargs(hideBin(process.argv))
-    .option('mode', {
-        alias: 'm',
-        description: 'the mode you want',
-        type: 'string',
-    })
-    .option('lines', {
-        alias: 'l',
-        description: 'Lines you want in the software',
-        type: 'number',
-    })
-    .option('ia', {
-        description: 'the difficulty you want the IA to play',
-    })
-    .help()
-    .alias('help', 'h');
+console.log(settings);
 
-console.log(argv); */
-
-game(settings);
+if (args.gui) {
+    console.log('I want the GUI mode');
+    openApp();
+} else {
+    game(settings);
+}
