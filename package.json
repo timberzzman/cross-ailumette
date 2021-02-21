@@ -1,12 +1,17 @@
 {
   "name": "cross-ailumette",
-  "version": "0.1.0",
-  "description": "",
-  "main": "index.js",
+  "version": "1.0.0",
+  "description": "A matches game in CLI with node",
+  "main": "src/electron.js",
   "scripts": {
-    "start": "npx electron .",
+    "start": "node ailumette.js",
     "dev": "npx nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "electron-start": "electron-forge start",
+    "electron-package": "electron-forge package",
+    "electron-make": "electron-forge make",
+    "electron-publish": "electron-forge publish",
+    "electron-lint": "echo \"No linting configured\""
   },
   "repository": {
     "type": "git",
@@ -19,13 +24,48 @@
   },
   "homepage": "https://github.com/timberzzman/cross-ailumette#readme",
   "devDependencies": {
+    "@electron-forge/cli": "^6.0.0-beta.54",
+    "@electron-forge/maker-deb": "^6.0.0-beta.54",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.54",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.54",
+    "@electron-forge/maker-zip": "^6.0.0-beta.54",
+    "electron": "^11.3.0",
     "eslint": "^7.20.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.22.1",
     "nodemon": "^2.0.7"
   },
   "dependencies": {
-    "electron": "^11.2.3",
     "minimist": "^1.2.5"
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "CrossAilumette"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ],
+      "afterExtract": [
+        "../../src/game.js"
+      ]
+    }
   }
 }
