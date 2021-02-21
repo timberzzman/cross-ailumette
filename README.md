@@ -1,4 +1,4 @@
-# Cross Aimulette
+# Cross Ailumette
 
 ```js
 *********
