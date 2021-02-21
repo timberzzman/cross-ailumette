@@ -26,11 +26,44 @@ board.initiateBoard = (height, width) => {
     return matches;
 };
 
-board.checkInput = (input, matches) => {
+board.checkInput = async (input, matches) => {
+    if (typeof input.line !== 'number' || input.line < 0) {
+        return 'Error: invalid input (positive number expected)';
+    }
     if (!checkLines(input.line, matches)) {
         return 'Error: this line is out of range';
-    } if (!checkMatches(input, matches)) {
-        return 'Error: matches';
+    }
+    if (typeof input.matches !== 'number' || input.matches < 0) {
+        return 'Error: invalid input (positive number expected)';
+    }
+    if (input.matches === 0) {
+        return 'Error: you have to remove at least one match';
+    }
+    if (!checkMatches(input, matches)) {
+        return 'Error: not enough matches on this line';
+    }
+    return '';
+};
+
+board.checkLines = async (input, matches) => {
+    if (typeof input !== 'number' || input < 0) {
+        return 'Error: invalid input (positive number expected)';
+    }
+    if (!checkLines(input, matches)) {
+        return 'Error: this line is out of range';
+    }
+    return '';
+};
+
+board.checkMatches = async (input, matches) => {
+    if (typeof input.matches !== 'number' || input.matches < 0) {
+        return 'Error: invalid input (positive number expected)';
+    }
+    if (input.matches === 0) {
+        return 'Error: you have to remove at least one match';
+    }
+    if (!checkMatches(input, matches)) {
+        return 'Error: not enough matches on this line';
     }
     return '';
 };
