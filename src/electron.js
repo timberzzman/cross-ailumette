@@ -16,12 +16,12 @@ function createWindow() {
         width: 800,
         height: 600,
         webPreferences: {
-            contextIsolation: true,
+            contextIsolation: false,
             nodeIntegration: true,
         },
     });
 
-    win.loadFile('index.html');
+    win.loadFile('../public/index.html');
 
     win.webContents.on('did-finish-load', () => {
         const windowTitle = `${name} ${version}`;
