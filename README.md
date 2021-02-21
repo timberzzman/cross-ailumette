@@ -14,29 +14,25 @@ A Matches game build with Electron and VanillaJS for GUI and node for CLI.
 
 ## :green_book: Requirements
 
----
-
 You need to have some elements for using this program on you computer:
 
 - NodeJS 12 or later
 
 ## :building_construction: Building and Launching
 
----
-
 You need to install npm packages before using this program:
 
->```npm install```
+```npm install```
 
 After you installed them, you can now use the program with the following command:
 
-> ```node ailumette```
+```node ailumette```
 
 This gonna launch the program with basic configuration
 
 For launching the GUI app, you need to add *--gui* flag
 
-> ```node ailumette --gui```
+```node ailumette --gui```
 
 The following parameters can be set for creating custom experience:
 
@@ -48,8 +44,6 @@ The following parameters can be set for creating custom experience:
 ### :warning: If you launch the GUI app, you need to set settings in it, it doesn't take command line arguments
 
 ## :camera: Screenshots
-
----
 
 Here are some screenshots from the app
 
@@ -67,8 +61,6 @@ Here are some screenshots from the app
 
 ## :8ball: BONUS
 
----
-
 The next elements is considered as bonus in this project:
 
 - Three levels of difficulty for the AI
@@ -80,8 +72,6 @@ The next elements is considered as bonus in this project:
 - Not killing app after game in GUI mode
 
 ## :black_nib: PS
-
----
 
 If you have some comments or constructive critics to make on the program or the code, feel free to leave them in issues, I'm gonna be pretty happy to read them and maybe update the project with some recommandations
 
