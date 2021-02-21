@@ -1,0 +1,36 @@
+#console {
+    background-color: black;
+    color: white;
+    font: 1.3rem Inconsolata, monospace;
+    text-shadow: 0 0 5px #C8C8C8;
+}
+
+#userInput {
+  background-color: black;
+  color: white;
+  font: 1.3rem Inconsolata, monospace;
+  text-shadow: 0 0 5px #C8C8C8;
+}
+
+.hidden {
+  display: none;
+}
+
+p {
+  margin: 0px;
+  line-height: 20px;
+}
+
+#matchesDisplay p{
+  font-size: 42px;
+  line-height: 32px;
+}
+
+input:focus {
+  outline: none;
+}
+
+::placeholder {
+  color: grey;
+  font-size: 0.7em;
+}
