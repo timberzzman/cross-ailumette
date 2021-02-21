@@ -1,5 +1,5 @@
 const minimist = require('minimist');
-const { openApp } = require('./src/electron.js');
+const { exec } = require('child_process');
 const game = require('./src/game.js');
 
 const args = minimist(process.argv.slice(2),
@@ -19,16 +19,24 @@ const args = minimist(process.argv.slice(2),
 const settings = {
     mode: args.gui ? 'gui' : 'cli',
     lines: args.lines,
-    ia: 'manual', // ou 'easy' ou 'intermediate' ou 'difficult' ou 'auto'
+    ia: args.ia, // ou 'easy' ou 'intermediate' ou 'difficult' ou 'auto'
     height: args.l,
     width: (2 * args.l) - 1,
 };
 
-console.log(settings);
-
 if (args.gui) {
-    console.log('I want the GUI mode');
-    openApp();
+    exec('npx electron ./src/electron.js', (error, stdout, stderr) => {
+        if (error) {
+            console.log(`error: ${error.message}`);
+            return;
+        }
+        if (stderr) {
+            console.log(`stderr: ${stderr}`);
+            return;
+        }
+        console.log(`stdout: ${stdout}`);
+        process.exit(0);
+    });
 } else {
     game(settings);
 }
