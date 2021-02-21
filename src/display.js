@@ -1,10 +1,18 @@
+/* eslint-disable no-console */
 const readline = require('readline');
+const { webContents, ipcMain } = require('electron');
+const { isElectron } = require('./utils');
 
 const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
 });
 
+function question(theQuestion) {
+    return new Promise((resolve) => rl.question(theQuestion, (answ) => resolve(answ)));
+}
+
+const input = {};
 const display = {};
 
 function displayBoardOnConsole(width, height, matches) {
@@ -26,8 +34,13 @@ function displayBoardOnConsole(width, height, matches) {
     console.log('*'.repeat(width + 2));
 }
 
-function displayBoardOnGUI(_width, _height, _matches) {
-    console.log('I am on GUI');
+function displayBoardOnGUI(width, height, matches) {
+    const data = {
+        width,
+        height,
+        matches,
+    };
+    webContents.getFocusedWebContents().send('displayBoard', data);
 }
 
 function displayScoreOnConsole() {
@@ -38,21 +51,54 @@ function displayScoreOnGUI() {
 
 }
 
-function question(theQuestion) {
-    return new Promise((resolve) => rl.question(theQuestion, (answ) => resolve(answ)));
+function displayMessageOnConsole(message) {
+    console.log(message);
 }
 
-async function displayInputOnConsole(currentPlayer, _settings) {
-    const input = {};
-
-    console.log(`${currentPlayer.name} turn:`);
-    input.line = await question('Line:') - 1;
-    input.matches = await question('Matches:');
-    return input;
+function displayMessageOnGUI(message) {
+    webContents.getFocusedWebContents().send('displayMessage', message);
 }
 
-function displayInputOnGUI() {
+async function displayInputOnConsole(data) {
+    let result = '';
+    if (data === 'line') {
+        result = await question('Line: ');
+        if (result === '') {
+            result = input.line;
+        } else {
+            input.line = Number(result);
+        }
+        console.log(input);
+    } else {
+        result = await question('Matches: ');
+    }
+    console.log('typeof', result, typeof result);
+    /* input.line = await question('Line:');
+    input.matches = await question('Matches:'); */
+    return Number(result);
+}
 
+async function checkResult() {
+    return new Promise((resolve, reject) => {
+        (function waitForFoo() {
+            if (input.waiting === false) {
+                return resolve();
+            }
+            /* if (Object.keys(input).length !== 0) {
+                return resolve();
+            } */
+            setTimeout(waitForFoo, 30);
+            return reject;
+        }());
+    });
+}
+
+async function displayInputOnGUI(data) {
+    webContents.getFocusedWebContents().send('waitInput', data);
+    input.waiting = true;
+    await checkResult();
+    console.log(input);
+    return input[data];
 }
 
 display.displayBoard = (matches, settings) => {
@@ -63,14 +109,22 @@ display.displayBoard = (matches, settings) => {
     }
 };
 
-display.displayInput = async (settings, currentPlayer) => {
+display.displayInput = async (settings, currentPlayer, data) => {
     let result = {};
     if (settings.mode === 'cli') {
-        result = await displayInputOnConsole(currentPlayer, settings);
+        result = await displayInputOnConsole(data);
     } else {
-        result = await displayInputOnGUI(currentPlayer, settings);
+        result = await displayInputOnGUI(data);
     }
     return result;
+};
+
+display.displayMessage = async (settings, message) => {
+    if (settings.mode === 'cli') {
+        displayMessageOnConsole(message);
+    } else {
+        displayMessageOnGUI(message);
+    }
 };
 
 display.displayScore = (settings, winner) => {
@@ -80,5 +134,19 @@ display.displayScore = (settings, winner) => {
         displayScoreOnGUI(winner);
     }
 };
+
+if (isElectron()) {
+    ipcMain.on('userInput', (event, arg, data, noneed) => {
+        console.log(arg, data, noneed);
+        const res = event;
+        if (data === 'line' && !noneed) {
+            input.line = arg;
+        } else if (data === 'matches') {
+            input.matches = arg;
+        }
+        input.waiting = false;
+        res.returnValue = 'OK';
+    });
+}
 
 module.exports = display;
