@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const minimist = require('minimist');
 const { exec } = require('child_process');
 const game = require('./src/game.js');
