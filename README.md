@@ -1,5 +1,15 @@
 # Cross Aimulette
 
+```js
+*********
+*   I   *
+*  III  *
+* IIIII *
+*IIIIIII*
+*********
+Player turn:
+```
+
 A Matches game build with Electron and VanillaJS for GUI and node for CLI.
 
 ## :green_book: Requirements
@@ -37,7 +47,25 @@ The following parameters can be set for creating custom experience:
 
 ### :warning: If you launch the GUI app, you need to set settings in it, it doesn't take command line arguments
 
-## BONUS
+## :camera: Screenshots
+
+---
+
+Here are some screenshots from the app
+
+### CLI
+
+---
+
+![Cross ailumette CLI screenshot](resources/images/cross-ailumette-cli.jpg "Cross ailumette CLI screenshot")
+
+### GUI
+
+---
+
+![Cross ailumette GUI screenshot](resources/images/cross-ailumette-gui.jpg "Cross ailumette GUI screenshot")
+
+## :8ball: BONUS
 
 ---
 
@@ -51,7 +79,7 @@ The next elements is considered as bonus in this project:
 - Set settings at runtime in GUI mode
 - Not killing app after game in GUI mode
 
-## PS
+## :black_nib: PS
 
 ---
 
