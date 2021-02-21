@@ -4,6 +4,11 @@
         "es2021": true,
         "node": true
     },
+    "globals": {
+        "window": true,
+        "document": true,
+        "navigator": true
+    },
     "extends": [
         "airbnb-base"
     ],
