@@ -68,13 +68,9 @@ async function displayInputOnConsole(data) {
         } else {
             input.line = Number(result);
         }
-        console.log(input);
     } else {
         result = await question('Matches: ');
     }
-    console.log('typeof', result, typeof result);
-    /* input.line = await question('Line:');
-    input.matches = await question('Matches:'); */
     return Number(result);
 }
 
